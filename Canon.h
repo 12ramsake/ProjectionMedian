@@ -25,21 +25,6 @@ public:
         initLevels((*out), kLevel);
 
     };
-/*     Canon(Arrangement *in, Arrangement *out, Arrangement full, int kLevel) {
-        // cout<<"here:";
-        makeInitCells(&((*in).getPlanes().at(0)));
-
-        vector<unsigned int> r1 = {1, 1};
-        vector<unsigned int> r2 = {1, 1};
-        vector<vector<unsigned int> > g = {r1, r2};
-        //             for(unsigned int i=0;i<g.size();++i){
-        //             	cout<<g[i][g.size()-1]<<" ";
-        // 			}
-        adjGraph = AdjGraph(g);
-        initCL(out);
-        initLevels(full, kLevel);
-
-    }; */
 
     //makes 1 cell;
     void makeInitCells() {
@@ -115,201 +100,7 @@ public:
     
     //makes initial 2 cells
 
-/*     void makeInitCells(Hyperplane *p1) {
 
-        //  Hyperplane *rightAbove, *leftAbove;
-        double infin = 1000000;
-        //xy high high...
-        double curr;
-        vector<Vertex > verts;
-        //xyz high or low, four intersections with box
-        Vertex hhh, hhl, hlh, lhh, llh, hll, lhl, lll;
-        Cell temp;
-        vector<Polygon> faces;
-        Polygon realFace;
-        // unsigned int n;
-        vector<vector<double > > tmp;
-        vector<double > tmp1;
-        vector<int> positions;
-        //right side, is which plane....
-
-
-        //each pos has a meaning for pos on the box
-        //-1 to -6, x=-inf,y=-inf,z=-inf,...,z=inf
-        positions = {-4, -5, -6};
-        hhh = Vertex(infin, infin, infin, true, positions);
-        positions = {-4, -5, -3};
-        hhl = Vertex(infin, infin, -infin, true, positions);
-        positions = {-4, -2, -6};
-        hlh = Vertex(infin, -infin, infin, true, positions);
-        positions = {-1, -5, -6};
-        lhh = Vertex(-infin, infin, infin, true, positions);
-        positions = {-1, -2, -3};
-        lll = Vertex(-infin, -infin, -infin, true, positions);
-        positions = {-1, -2, -6};
-        llh = Vertex(-infin, -infin, infin, true, positions);
-        positions = {-1, -5, -3};
-        lhl = Vertex(-infin, infin, -infin, true, positions);
-        positions = {-4, -2, -3};
-        hll = Vertex(infin, -infin, -infin, true, positions);
-
-        //goes hh, hl, ll ,hh
-        for (unsigned int i = 0; i < 4 && verts.size() < 4; ++i) {
-            if (i == 0) {
-                tmp1 = {infin, infin, 0};
-                curr = (*p1).getZ(infin, infin);
-                positions = {-4, -5, (*p1).pos()};
-            } else if (i == 1) {
-                tmp1 = {-infin, infin, 0};
-                curr = (*p1).getZ(-infin, infin);
-                positions = {-1, -5, (*p1).pos()};
-            } else if (i == 2) {
-                tmp1 = {-infin, -infin, 0};
-                curr = (*p1).getZ(-infin, -infin);
-                positions = {-1, -2, (*p1).pos()};
-            } else if (i == 3) {
-                tmp1 = {infin, -infin, 0};
-                curr = (*p1).getZ(infin, -infin);
-                positions = {-4, -2, (*p1).pos()};
-            }
-            if (curr < infin && curr>-infin) {
-                verts.push_back(Vertex(tmp1[0], tmp1[1], curr, true, positions));
-                tmp.push_back(tmp1);
-            }
-
-        }
-
-        //goes hh, hl, lh , ll
-        //goes hh, hl, ll ,hh
-        for (unsigned int i = 0; i < 4 && verts.size() < 4; ++i) {
-            if (i == 0) {
-                tmp1 = {infin, 0, infin};
-                curr = (*p1).getY(infin, infin);
-                positions = {-4, (*p1).pos(), -6};
-            } else if (i == 1) {
-                tmp1 = {-infin, 0, infin};
-                curr = (*p1).getY(-infin, infin);
-                positions = {-1, (*p1).pos(), -6};
-            } else if (i == 2) {
-                tmp1 = {-infin, 0, -infin};
-                curr = (*p1).getY(-infin, -infin);
-                positions = {-1, (*p1).pos(), -3};
-            } else if (i == 3) {
-                tmp1 = {infin, 0, -infin};
-                curr = (*p1).getY(infin, -infin);
-                positions = {-4, (*p1).pos(), -3};
-            }
-            if (curr < infin && curr>-infin) {
-                verts.push_back(Vertex(tmp1[0], curr, tmp1[2], true, positions));
-                tmp.push_back(tmp1);
-
-            }
-
-        }
-
-        //goes hh, hl, lh , ll
-        //goes hh, hl, ll ,hh
-        for (unsigned int i = 0; i < 4 && verts.size() < 4; ++i) {
-            if (i == 0) {
-                tmp1 = {0, infin, infin};
-                curr = (*p1).getX(infin, infin);
-                positions = {(*p1).pos(), -5, -6};
-            } else if (i == 1) {
-                tmp1 = {0, -infin, infin};
-                curr = (*p1).getX(-infin, infin);
-                positions = {(*p1).pos(), -2, -6};
-            } else if (i == 2) {
-                tmp1 = {0, -infin, -infin};
-                curr = (*p1).getX(-infin, -infin);
-                positions = {(*p1).pos(), -2, -3};
-            } else if (i == 3) {
-                tmp1 = {0, infin, -infin};
-                curr = (*p1).getX(infin, -infin);
-                positions = {(*p1).pos(), -5, -3};
-            }
-            if (curr < infin && curr>-infin) {
-                verts.push_back(Vertex(curr, tmp1[1], tmp1[2], true, positions));
-                tmp.push_back(tmp1);
-            }
-
-        }
-
-
-        realFace = Polygon(verts, false);
-
-
-
-        //if plane cuts along yz, assume all verts are this...
-
-        if (tmp[0][0] == 0) {
-
-            faces.push_back(Polygon(hhh, hhl, hll, hlh, true));
-            faces.push_back(realFace);
-            faces.push_back(Polygon(hhh, hhl, verts[3], verts[0], true));
-            faces.push_back(Polygon(hhh, hlh, verts[1], verts[0], true));
-            faces.push_back(Polygon(hll, hhl, verts[3], verts[2], true));
-            faces.push_back(Polygon(hll, hlh, verts[1], verts[2], true));
-            temp = Cell(faces, true);
-            cells.push_back(temp);
-            faces.clear();
-
-            faces.push_back(Polygon(lhh, lhl, lll, llh, true));
-            faces.push_back(realFace);
-            faces.push_back(Polygon(lhh, lhl, verts[3], verts[0], true));
-            faces.push_back(Polygon(lhh, llh, verts[1], verts[0], true));
-            faces.push_back(Polygon(lll, lhl, verts[3], verts[2], true));
-            faces.push_back(Polygon(lll, llh, verts[1], verts[2], true));
-            temp = Cell(faces, true);
-            cells.push_back(temp);
-        } else if (tmp[0][1] == 0) {
-
-            faces.push_back(Polygon(hhh, hhl, lhl, lhh, true));
-            faces.push_back(realFace);
-            faces.push_back(Polygon(hhh, hhl, verts[3], verts[0], true));
-            faces.push_back(Polygon(hhh, lhh, verts[1], verts[0], true));
-            faces.push_back(Polygon(lhl, hhl, verts[3], verts[2], true));
-            faces.push_back(Polygon(lhl, lhh, verts[1], verts[2], true));
-
-            temp = Cell(faces, true);
-            cells.push_back(temp);
-            //            temp.printFaces();
-            faces.clear();
-
-            faces.push_back(Polygon(hlh, hll, lll, llh, true));
-            faces.push_back(realFace);
-            faces.push_back(Polygon(hlh, hll, verts[3], verts[0], true));
-            faces.push_back(Polygon(hlh, llh, verts[1], verts[0], true));
-            faces.push_back(Polygon(lll, hll, verts[3], verts[2], true));
-            faces.push_back(Polygon(lll, llh, verts[1], verts[2], true));
-            temp = Cell(faces, true);
-            cells.push_back(temp);
-        } else if (tmp[0][2] == 0) {
-
-            faces.push_back(Polygon(hhh, lhh, llh, hlh, true));
-            faces.push_back(realFace);
-            faces.push_back(Polygon(hhh, lhh, verts[3], verts[0], true));
-            faces.push_back(Polygon(hhh, hlh, verts[1], verts[0], true));
-            faces.push_back(Polygon(llh, lhh, verts[3], verts[2], true));
-            faces.push_back(Polygon(llh, hlh, verts[1], verts[2], true));
-            temp = Cell(faces, true);
-            cells.push_back(temp);
-            faces.clear();
-
-            faces.push_back(Polygon(hhl, lhl, lll, hll, true));
-            faces.push_back(realFace);
-            faces.push_back(Polygon(hhl, lhl, verts[3], verts[0], true));
-            faces.push_back(Polygon(hhl, hll, verts[1], verts[0], true));
-            faces.push_back(Polygon(lll, lhl, verts[3], verts[2], true));
-            faces.push_back(Polygon(lll, hll, verts[1], verts[2], true));
-            temp = Cell(faces, true);
-            cells.push_back(temp);
-        } 
-        else
-            cout << "error \n";
-    }
-
-     */
-    
     void initCL(Arrangement *out) {
 
         vector < vector < vector<bool> > > newCL;
@@ -337,14 +128,6 @@ public:
 
 
 
-	void printLevels(){
-		cout<<"Print Levels ";
-		for(unsigned int i = 0; i < cells.size(); ++i) {
-               cells[i].printLevels();
-			cout << "\n";
-
-        }
-	}
 
     //add indices;
 
@@ -539,7 +322,15 @@ public:
         }
 
     }
-    
+    	void printLevels(){
+		cout<<"Print Levels ";
+		for(unsigned int i = 0; i < cells.size(); ++i) {
+               cells[i].printLevels();
+			cout << "\n";
+
+        }
+	}
+
     void printCLS() {
 
         for (unsigned int i = 0; i < cells.size(); ++i) {

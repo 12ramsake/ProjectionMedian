@@ -157,19 +157,8 @@ public:
         return trian.at(0);
     };
 
-    bool is2D() {
-        unsigned int t = 3;
-        bool is2d;
-        for (unsigned int i = 0; i < trian.size(); ++i) {
-            is2d = trian.at(i).getDimension() < t;
-            if (!is2d)
-                break;
-        }
-        return is2d;
-    };
-
     //adds in right order to make a face
-    //here AUGUST 21 THIS IS STILL WRONG PLEASE FIX
+
 
     void order(vector<Vertex> *toAdd) {
 
@@ -236,20 +225,6 @@ public:
     // gets intersections on plane and simplex
 
 
-    //is k in vector twice
-
-    bool isInTwice(unsigned int k, vector<unsigned int> v) {
-        int count = 0;
-        for (unsigned int i = 0; i < v.size(); ++i) {
-
-            if (v[i] == k)
-                ++count;
-            if (count == 2)
-                break;
-        }
-
-        return count == 2;
-    }
 
     void updateAdjMatrix(vector<unsigned int> cand, unsigned int newSimplexStart) {
 
@@ -910,61 +885,7 @@ public:
     }
 
 
-    //get initial simplices fort each hyperplane in union of lists
 
-    vector<unsigned int> getInit(unsigned int newSimplexStart, vector<Hyperplane> H, vector<Polygon> oldFaces) {
-        vector<bool> val;
-        vector<unsigned int> init;
-        //initialize
-        init.assign(H.size(), 0);
-        val.assign(H.size(), false);
-        //does it intersect in an edge?
-        for (unsigned int i = newSimplexStart; i < trian.size(); ++i) {
-            for (unsigned int j = 0; j < H.size(); ++j) {
-                val[j] = intersectsEdge(trian[i], H[j], oldFaces);
-                if (val[j]) {
-                    init[j] = i;
-                }
-
-            }
-        }
-
-        for (unsigned int j = 0; j < H.size(); ++j) {
-            if (!val[j]) {
-                val[j] = true;
-                init[j] = trian.size() - 1;
-            }
-        }
-
-        return init;
-
-    }
-    //you need to get the  OLD FACES and check those edges....
-    //after that use the intersecting one
-
-    bool intersectsEdge(Simplex s, Hyperplane h, vector<Polygon> oldFaces) {
-        vector<vector<Vertex> > tmp1;
-        vector<Vertex> curr;
-        bool edge = false;
-        //does h intersect s?
-        tmp1 = s.intersectionVerts(h);
-        //if so is it an edge of C?
-        if (tmp1.size() > 0) {
-            for (unsigned int i = tmp1.size(); i < tmp1.size(); ++i) {
-                curr = tmp1[i];
-                for (unsigned int j = 0; j < oldFaces.size(); ++j) {
-                    edge = oldFaces[j].isEdge(curr);
-                    if (edge)
-                        break;
-                }
-                if (edge)
-                    break;
-            }
-
-        }
-
-        return edge;
-    }
 
     int getActive() {
         return active;
@@ -979,66 +900,7 @@ public:
                 ++active;
         }
     }
-    //we must traverse S....
-    
-    
 
-
-//     void traverse(unsigned int init, Hyperplane h, Arrangement *notIns, unsigned int cellIndex, unsigned int newSimplexStart) {
-// 
-//         vector<unsigned int> queue;
-//         vector<unsigned int> visited;
-//         vector<unsigned int> inter;
-//         unsigned int index = init - newSimplexStart;
-//         unsigned int qSize;
-//         bool discovered = false;
-//         //here
-//         visited.push_back(index);
-//         queue.push_back(index);
-//         Simplex S = trian.at(init);
-//         trian.at(init).addToCL(h);
-//         (*notIns).addToCL(true, h, init, cellIndex);
-//         bool inList;
-//         AdjGraph adjSub = adj.getSub(newSimplexStart);
-//         //    adjSub.print();
-//         qSize = queue.size();
-//         while (qSize > 0) {
-//             //get intersections
-//             inter = adjSub.getInter(index);
-//             //for each intersections
-//             for (unsigned int i = 0; i < inter.size(); ++i) {
-// 
-//                 discovered = unIntIn(inter[i], visited);
-//                 //
-//                 if (!discovered) {
-//                     //get that simplex
-//                     S = trian.at(inter[i] + newSimplexStart);
-//                     //do they intersect?
-//                     inList = S.intersect(h);
-//                     if (inList) {
-//                         trian.at(inter[i] + newSimplexStart).addToCL(h);
-//                     }
-// 
-//                     //add this to conflict list
-//                     (*notIns).addToCL(inList, h, inter[i] + newSimplexStart, cellIndex);
-//                     //we have visited this simplex?/
-// 
-//                     visited.push_back(inter[i]);
-//                     //add to queue
-//                     queue.push_back(inter[i]);
-//                 }
-//             }
-// 
-//             //get next simplex
-//             index = queue.at(0);
-//             //cout<<index<<"ind\n";
-//             //remove this one from queue
-//             queue.erase(queue.begin());
-//             qSize = queue.size();
-// 
-//         }
-// 
-//     }
 
     bool unIntIn(unsigned int c, vector<unsigned int > vv) {
 

@@ -148,23 +148,6 @@ public:
     }
 
 
-    //gets convex combo of points, if the weights are not in 0,1 it return -1
-
-/*     double getAlpha(vector<double> v1, vector<double> v2, vector<double> cand) {
-        double alpha;
-        double alpha2;
-        double alpha3;
-
-
-        alpha = (cand[0] - v2[0]) / (v1[0] - v2[0]);
-        alpha2 = (cand[1] - v2[1]) / (v1[1] - v2[1]);
-        alpha3 = (cand[2] - v2[2]) / (v1[2] - v2[2]);
-         if (alpha != alpha2 || alpha != alpha3 || alpha3 != alpha2 || alpha2 < 0 || alpha > 1) {
-            alpha = -1;
-        }// 
-
-        return alpha;
-    } */
 
     Vertex getbvV() {
         return verts.at(bv);

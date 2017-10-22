@@ -84,42 +84,6 @@ public:
         conflictList = planes;
     };
 
-    double getWeight(Hyperplane h, unsigned int i1, unsigned int i2) {
-
-        vector<double > v1 = verts[i1].getCoord();
-        vector<double > v2 = verts[i2].getCoord();
-
-        return getWeight2(h, v1, v2);
-    }
-
-    vector<vector<Vertex> > intersectionVerts(Hyperplane p) {
-        bool inter;
-        vector<vector<Vertex> > intVerts;
-        vector<Vertex> tmp;
-        double alpha;
-
-        //for different pairs
-        for (unsigned int i = 0; i < verts.size(); ++i) {
-            for (unsigned int j = (i + 1); j < verts.size(); ++j) {
-                alpha = getWeight(p, i, j);
-                // between 0 and 1
-                inter = alpha < 1 && alpha > 0;
-                if (inter) {
-                    tmp.push_back(verts[i]);
-                    tmp.push_back(verts[j]);
-                    intVerts.push_back(tmp);
-                    tmp.clear();
-                    break;
-                }
-            }
-
-            if (intVerts.size() == 3)
-                break;
-        }
-        return intVerts;
-
-    }
-    
     int getSideLevel(Hyperplane h){
 		
 		int pLev=level.getValue();
@@ -165,31 +129,6 @@ public:
 
     }
 
-    double getWeight2(Hyperplane h, vector<double > v1, vector<double > v2) {
-
-
-        vector<double > planeCoeff = h.getCoef();
-        vector<double > diff;
-       // double mult = 1;
-        double alpha, a2;
-
-        for (unsigned int i = 0; i < 3; ++i) {
-            diff.push_back(v1[i] - v2[i]);
-        }
-
-
-        alpha = dotProd(planeCoeff, v1) + planeCoeff[3];
-        a2 = dotProd(diff, planeCoeff);
-
-        return alpha / a2;
-    }
-
-    double dotProd(vector<double > v1, vector<double > v2) {
-
-        return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
-
-    }
-	
 
     vector<double> crossProduct(vector<double> y1,vector<double> y2){
 	
@@ -280,13 +219,7 @@ public:
 
     }
 
-    void printVals(int lower, int upper,int kLevel,bool active ){
-        print();
-        cout<<"active "<<active<<" kLevel "<<kLevel<<" lower "<<lower<<" upper "<<upper<<"\n";
-        }
- 
-
-    void addVertex(Vertex v) {
+	 void addVertex(Vertex v) {
         verts.push_back(v);
 		level.setPoint(mean());
     }
@@ -312,17 +245,17 @@ public:
             }
             value = count >= 3;
         }
-        //				else if(d1==2&&d1==d2){
-        //				
-        //					for(unsigned int i=0;i<=d2;++i){
-        //					
-        //						if(verts[i].equals(s.getVerts()[0])||verts[i].equals(s.getVerts()[1])||verts[i].equals(s.getVerts()[2]))
-        //							++count;
-        //					}
-        //					value=count==2;
-        //				}
+
         return value;
     }
+	
+    void printVals(int lower, int upper,int kLevel,bool active ){
+        print();
+        cout<<"active "<<active<<" kLevel "<<kLevel<<" lower "<<lower<<" upper "<<upper<<"\n";
+        }
+ 
+
+   
 
     void printLevel(){
 		cout<<" "<<level.getValue()<<" ";
