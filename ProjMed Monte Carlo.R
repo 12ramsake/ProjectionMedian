@@ -35,33 +35,39 @@ normalize<-function(x){
   return(x/sqrt(sum(x^2)))
 }
 
-projMC<-function(data,N=10000){
+
+getWeights<-function(data,x1){
+  
+
+  c2<-apply(x1,MARGIN=2,singlePM,data=data,even=nrow(data)%%2==0)
+
+  identify<-Vectorize(function(x){
+    return(sum(sapply(c2,identical,y=x)))
+  })
+  
+  w<-sapply(1:length(data[,1]),identify)/length(c2)
+  return(w)
+}
+
+projMC<-function(data,N=10000,method=1){
   
   d<-ncol(data)
   
   x1<-replicate(d,rnorm(N))
   x1<-apply(x1,MARGIN=1,normalize)
-  c<-data[apply(x1,MARGIN=2,singlePM,data=data,even=nrow(data)%%2==0),]
-  pm<-apply(c,MARGIN=2,mean)
+  if(method==1){
+    c2<-data[apply(x1,MARGIN=2,singlePM,data=data,even=nrow(data)%%2==0),]
+    pm<-apply(c2,MARGIN=2,mean)
+  }
+  else{
+    w<-getWeights(data,x1)
+    pm<-matrix(w,nrow=1)%*%data
+  }
   return(pm)
 }
 
-getWeights<-function(data,N=100000){
-  
-  d<-length(data[1,])
-  
-  x1<-replicate(d,rnorm(N))
-  x1<-apply(x1,MARGIN=1,normalize)
-  c<-apply(x1,MARGIN=2,singlePM,data=data,even=nrow(data)%%2==0)
-  
-  identify<-Vectorize(function(x){
-    return(sum(sapply(c,identical,y=x)))
-  })
-  
-  w<-sapply(1:length(data[,1]),identify)/length(c)
-  return(w)
-}
 
 # 
 # m1<-projMC(dataT)
 m2<-projMC(data)
+m2<-projMC(data,method=2)
