@@ -130,9 +130,9 @@ calculateTestStat<-function(data,m=1000){
   sigma<-(estVarr(data[1:50,])*(50-1)+estVarr(data[51:102,])*51)/100
   
   set.seed(23623)
-  pm1<-projMC(data[1:50,],N=m)
+  pm1<-projectionMedianMC(data[1:50,],N=m)
   set.seed(23623)
-  pm2<-projMC(data[51:102,],N=m)
+  pm2<-projectionMedianMC(data[51:102,],N=m)
   
   ts<-t(pm1-pm2)%*%solve(sigma)%*%t(t(pm1-pm2))
 #  print("pval")
