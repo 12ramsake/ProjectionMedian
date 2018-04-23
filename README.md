@@ -8,4 +8,4 @@ For 3 Dimensions:
 <br />
 For the approximation in d use the Monte Carlo file and source the script
 All functions take an nxd matrix  <br /> <br />
-To run the permutation test example, run the prostate example script after loading prostmat into the working directory
+To run the large sample test example, run the prostate example script after downloading prostmat and placing it into your R working directory
