@@ -1,4 +1,6 @@
 # ProjectionMedian
+<br /> <br />
+Depreciated! Simply install the R package via the line: install_github('12ramsake/DurocherProjectionMedian') and use the dpm function to compute the projection median. <br /> <br />
 Compute the Projection Median in any Dimension <br /> <br />
 For 2 Dimensions run 2 Dimensions script. <br /> <br />
 For 3 Dimensions:
