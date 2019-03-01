@@ -2,6 +2,8 @@ library(ggplot2)
 library(latex2exp)
 library(ggthemes)
 
+
+makeGraph<-function(eps=.1){
 #part of projection depth MB Cauchy Mariginals
 #realted to d1 and d0 in Zuo2004
 solveABSquantile<-Vectorize(function(k,C,q){
@@ -50,11 +52,11 @@ getCB<-function(sigma,d,eps){
   getFinv<-function(u){
     scale<-sum(abs(u[1:(d-1)]))+abs(u[d])*sigma
     #print(scale)
-    return(qcauchy(1/(2*(1-eps)),scale))
+    return(qcauchy(1/(2*(1-eps)),scale=scale))
   }
   
   int<-mean(apply(x1,2,getFinv))
-  return(int)
+  return(int*d)
 }
 
 #MB for Cauchy marginals, as per Chen 2002
@@ -67,7 +69,7 @@ ds<-2:10
 ln<-length(ds)
 
 #epsilon
-eps<-.2
+#eps<-.3
 epsilon<-rep(eps,ln)
 
 #calculate MBS
@@ -97,6 +99,9 @@ ggplot(mat2, aes(x=X3,y=X2,color=T))+
                                                               expression(italic("PMZ"))))+
   theme_economist()
 
+}
 
-
-
+makeGraph(eps = .1)
+makeGraph(eps = .2)
+makeGraph(eps = .3)
+#save as 6x6
