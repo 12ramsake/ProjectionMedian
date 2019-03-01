@@ -1,5 +1,5 @@
 #Cauchy differnces graphs
-
+#save as 6x6
 
 
 library(ggplot2)
@@ -51,23 +51,23 @@ getCB<-function(sigma,d,eps){
   getFinv<-function(u){
     scale<-sum(abs(u[1:(d-1)]))+abs(u[d])*sigma
     #print(scale)
-    return(qcauchy(1/(2*(1-eps)),scale))
+    return(qcauchy(1/(2*(1-eps)),scale=scale))
   }
   
   int<-mean(apply(x1,2,getFinv))
-  return(int)
+  return(int*d)
 }
 
 #MB for Cauchy marginals, as per Chen 2002
 getCBHM<-Vectorize(function(sigma,eps,d=2){
-  return(max(sigma,sqrt(d))*tan(pi*eps/((1-eps))))
+  return(max(sigma,sqrt(d))*tan(pi*eps/(1-eps)))
 },vectorize.args = 'd')
 
 
 #epsilons
 epss<-seq(.05,.45,length.out = 100)
 
-sigmas<-1:5
+sigmas<-c(1,2,5,8,10)
 
 #projection depth mb
 biasesPD<-matrix(0,nrow=length(sigmas),ncol=100)
@@ -88,7 +88,7 @@ biasesHM
 biasesPM<-matrix(0,nrow=length(sigmas),ncol=100)
 for(i in 1:length(sigmas))
   for(j in 1:100)
-    biasesPM[i,j]<-getCB(sigmas[i],2,epss[j])
+    biasesPM[i,j]<-getCB(sigmas[i],d=2,epss[j])
 biasesPM
 
 
@@ -105,7 +105,7 @@ dat$Scale=as.factor(dat$Scale)
 ggplot(dat, aes(x=Epsilon,y=Bias,
                 color=Scale,group=Scale))+
     #stat_smooth(lwd=1.5,se=FALSE)+
-  geom_line(lwd=2)+
+  geom_line(lwd=1.5)+
   ylab(TeX('$\\mathbf{B}(\\mathit{M},\\epsilon,\\mathit{F})-\\mathbf{B}(\\mathit{PMZ},\\epsilon,\\mathit{F})$'))+
   xlab(TeX('$\\epsilon$'))+
 # coord_cartesian(ylim=c(-160,-1)) +
@@ -152,7 +152,7 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
                 color=Scale,group=Scale))+
   ylab(TeX('$\\mathbf{B}(\\mathit{M},\\epsilon,\\mathit{F})-\\mathbf{B}(\\mathit{HM},\\epsilon,\\mathit{F})$'))+
   #stat_smooth(lwd=1.5,se=FALSE)+
-  geom_line(lwd=2)+
+  geom_line(lwd=1.5)+
   xlab(TeX('$\\epsilon$'))+
   #  coord_cartesian(ylim=c(-1,4)) +
   scale_color_economist()+
@@ -170,7 +170,7 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
 
 #variation over u
 
-a<-1:5
+a<-sigmas
 grid<-seq(0,pi,length.out = 200)
 f2<-Vectorize(function(val,x=grid){sum(abs(matrix(c(cos(x),sin(x)),nrow=1))*c(1,val))},vectorize.args = 'x')
 
@@ -200,7 +200,7 @@ ggplot(dat2, aes(x=Epsilon,y=Bias,
                  color=Scale,group=Scale))+
   ylab(TeX('$a(u)$'))+
   #stat_smooth(lwd=1.5,se=FALSE)+
-  geom_line(lwd=2)+
+  geom_line(lwd=1.5)+
   #coord_cartesian(ylim=c(-20,0.15)) +
   theme_economist()+ 
   #  theme(legend.position = c(2.5, 20))+
