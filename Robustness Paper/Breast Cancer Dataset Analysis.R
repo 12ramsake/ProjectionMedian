@@ -189,7 +189,7 @@ estVarr<-function(data,w,m,x1){
   iequalsj<-Reduce(`+`,foreach(i=1:m) %dopar% terms3(i,x1,heights))
   
   #  make a matrix
-  sigma<-(1/m)^2*matrix(sums+c(iequalsj),ncol=d)
+  sigma<-(d/m)^2*matrix(sums+c(iequalsj),ncol=d)
   
   return(sigma)
 }
