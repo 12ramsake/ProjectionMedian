@@ -1,5 +1,5 @@
 #Cauchy differnces graphs
-#save as 6x6
+
 
 
 library(ggplot2)
@@ -104,11 +104,11 @@ dat<-data.frame(cbind(Epsilon,Scale,Bias))
 dat$Scale=as.factor(dat$Scale)
 ggplot(dat, aes(x=Epsilon,y=Bias,
                 color=Scale,group=Scale))+
-    #stat_smooth(lwd=1.5,se=FALSE)+
+  #stat_smooth(lwd=1.5,se=FALSE)+
   geom_line(lwd=1.5)+
   ylab(TeX('$\\mathbf{B}(\\mathit{M},\\epsilon,\\mathit{F})-\\mathbf{B}(\\mathit{PMZ},\\epsilon,\\mathit{F})$'))+
   xlab(TeX('$\\epsilon$'))+
-# coord_cartesian(ylim=c(-160,-1)) +
+  # coord_cartesian(ylim=c(-160,-1)) +
   scale_color_economist()+
   theme_economist()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
@@ -118,8 +118,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
         axis.text.y = element_text(size=20),
         axis.title.y = element_text(size=20),
         legend.text=element_text(size=20),
-        legend.title=element_text(size=20))+
-  ggtitle("Bias Difference, PMZ")
+        legend.title=element_text(size=20))#+
+#  ggtitle("Bias Difference, PMZ")
 
 
 #epsilon only goes up to .33 for HM
@@ -164,8 +164,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
         axis.text.y = element_text(size=20),
         axis.title.y = element_text(size=20),
         legend.text=element_text(size=20),
-        legend.title=element_text(size=20))+
-  ggtitle("Bias Difference, HM")
+        legend.title=element_text(size=20))#+
+# ggtitle("Bias Difference, HM")
 
 
 #variation over u
@@ -215,8 +215,9 @@ ggplot(dat2, aes(x=Epsilon,y=Bias,
         axis.text.y = element_text(size=20),
         axis.title.y = element_text(size=20),
         legend.text=element_text(size=20),
-        legend.title=element_text(size=20))+
-  ggtitle("Variation over u")
+        legend.title=element_text(size=20))
+#+
+#ggtitle("Variation over u")
 
 
 
