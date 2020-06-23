@@ -1,6 +1,7 @@
 #Cauchy differences graphs
 
 
+pal=c("#3366CC","#0000FF","#0000CC","#000066","#000033")
 
 library(ggplot2)
 library(latex2exp)
@@ -119,8 +120,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
   ylab(TeX('$\\mathbf{B}(PMD,\\epsilon,\\mathit{F})-\\mathbf{B}(PM_{zuo},\\epsilon,\\mathit{F})$'))+
   xlab(TeX('$\\epsilon$'))+
 # coord_cartesian(ylim=c(-160,-1)) +
-  scale_color_economist()+
-  theme_economist()+
+  scale_color_manual(values=pal)+
+  theme_bw()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
         axis.title.x = element_text(size=20),
@@ -165,8 +166,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
   geom_line(lwd=1.5)+
   xlab(TeX('$\\epsilon$'))+
   #  coord_cartesian(ylim=c(-1,4)) +
-  scale_color_economist()+
-  theme_economist()+
+  scale_color_manual(values=pal)+
+  theme_bw()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
         axis.title.x = element_text(size=20),
@@ -212,11 +213,10 @@ ggplot(dat2, aes(x=Epsilon,y=Bias,
   #stat_smooth(lwd=1.5,se=FALSE)+
   geom_line(lwd=1.5)+
   #coord_cartesian(ylim=c(-20,0.15)) +
-  theme_economist()+ 
   #  theme(legend.position = c(2.5, 20))+
   xlab("Spherical Angle")+
-  
-  scale_color_economist()+
+   theme_bw()+
+  scale_color_manual(values=pal)+
   
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
@@ -275,8 +275,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
   ylab(TeX('$\\mathbf{B}(PMD,\\epsilon,\\mathit{F})-\\mathbf{B}(PM_{zuo},\\epsilon,\\mathit{F})$'))+
   xlab(TeX('$\\epsilon$'))+
   # coord_cartesian(ylim=c(-160,-1)) +
-  scale_color_economist()+
-  theme_economist()+
+  scale_color_manual(values=pal)+
+  theme_bw()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
         axis.title.x = element_text(size=20),
@@ -321,8 +321,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
   geom_line(lwd=1.5)+
   xlab(TeX('$\\epsilon$'))+
   #  coord_cartesian(ylim=c(-1,4)) +
-  scale_color_economist()+
-  theme_economist()+
+  scale_color_manual(values=pal)+
+  theme_bw()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
         axis.title.x = element_text(size=20),
@@ -371,8 +371,7 @@ ggplot(dat2, aes(x=Epsilon,y=Bias,
   theme_economist()+ 
   #  theme(legend.position = c(2.5, 20))+
   xlab("Spherical Angle")+
-  
-  scale_color_economist()+
+  scale_color_manual(values=pal)+
   
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
@@ -429,8 +428,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
   ylab(TeX('$\\mathbf{B}(PMD,\\epsilon,\\mathit{F})-\\mathbf{B}(PM_{zuo},\\epsilon,\\mathit{F})$'))+
   xlab(TeX('$\\epsilon$'))+
   # coord_cartesian(ylim=c(-160,-1)) +
-  scale_color_economist()+
-  theme_economist()+
+  scale_color_manual(values=pal)+
+  theme_bw()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
         axis.title.x = element_text(size=20),
@@ -475,8 +474,8 @@ ggplot(dat, aes(x=Epsilon,y=Bias,
   geom_line(lwd=1.5)+
   xlab(TeX('$\\epsilon$'))+
   #  coord_cartesian(ylim=c(-1,4)) +
-  scale_color_economist()+
-  theme_economist()+
+  scale_color_manual(values=pal)+
+  theme_bw()+
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
         axis.title.x = element_text(size=20),
@@ -522,11 +521,11 @@ ggplot(dat2, aes(x=Epsilon,y=Bias,
   #stat_smooth(lwd=1.5,se=FALSE)+
   geom_line(lwd=1.5)+
   #coord_cartesian(ylim=c(-20,0.15)) +
-  theme_economist()+ 
+  theme_bw()+
   #  theme(legend.position = c(2.5, 20))+
   xlab("Spherical Angle")+
   
-  scale_color_economist()+
+  scale_color_manual(values=pal)+
   
   #scale_color_brewer(type = 'seq', palette ='PuRd', direction = 1)+
   theme(plot.title = element_text(size = 40, face = "bold"),
