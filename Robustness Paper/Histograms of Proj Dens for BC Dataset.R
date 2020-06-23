@@ -87,13 +87,15 @@ names(va)<-c("Class","Variance of Spread","InvDH")
   
 #8x8
 ggplot(data=subset(va,Class=="B"),aes(x=InvDH))+
-  geom_histogram(binwidth=.5,color="black")+
+  geom_histogram(binwidth=.5,color="black",fill="#000033",lwd=1.25)+
   xlab(TeX('$\\frac{1}{\\hat{\\mathit{f}}_u(\\xi_u)}$'))+
-  scale_fill_economist()+
-  theme_economist()
+  scale_fill_manual("#000033")+
+  ylab("Counts")+
+  theme_bw()
 #8x8
 ggplot(data=subset(va,Class=="M"),aes(x=InvDH))+
-  geom_histogram(binwidth=.5,color="black")+
+  geom_histogram(binwidth=.5,color="black",fill="#000033",lwd=1.25)+
   xlab(TeX('$\\frac{1}{\\hat{\\mathit{f}}_u(\\xi_u)}$'))+
-  scale_fill_economist()+
-  theme_economist()
+  scale_fill_manual("#000033")+
+  ylab("Counts")+
+  theme_bw()
